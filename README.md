@@ -4,7 +4,7 @@ See what's happening for a medical condition right now, and whether *you* qualif
 
 Built for Pharma Hack Day (AWS Builder Loft, SF). Problem statement: treatment observability for patients.
 
-**✅ Problem Statement 3 — fully covered.** Search, live treatment landscape, an explainable/cited eligibility verdict, filters, tracking with a real change feed, and a help center are all built and working end-to-end on real data, no mocks.
+**We've covered Problem Statement 3 in this project.** Search, live treatment landscape, an explainable/cited eligibility verdict, filters, tracking with a real change feed, and a help center are all built and working end-to-end on real data, no mocks.
 
 ## Screenshots
 
