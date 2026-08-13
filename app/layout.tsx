@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -15,6 +15,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Trial Compass",
   description: "Find clinical trials and treatment options by condition.",
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#eafaf3" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d211a" },
+  ],
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

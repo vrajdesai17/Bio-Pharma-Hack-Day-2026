@@ -83,26 +83,26 @@ export default function TrackedPage() {
   return (
     <div className="mx-auto w-full max-w-2xl px-6 py-16">
       <div className="flex items-center justify-between">
-        <Link href="/" className="text-sm text-zinc-500 hover:underline">
+        <Link href="/" className="text-sm text-emerald-800/70 hover:text-emerald-700 hover:underline dark:text-emerald-300/70 dark:hover:text-emerald-200">
           ← Back
         </Link>
-        <Link href="/help" className="text-sm text-zinc-500 hover:underline dark:text-zinc-400">
+        <Link href="/help" className="text-sm text-emerald-800/70 hover:text-emerald-700 hover:underline dark:text-emerald-300/70 dark:hover:text-emerald-200">
           Help
         </Link>
       </div>
-      <h1 className="mt-4 text-3xl font-semibold tracking-tight text-black dark:text-zinc-50">
+      <h1 className="mt-4 text-3xl font-semibold tracking-tight text-emerald-950 dark:text-emerald-50">
         Tracked trials
       </h1>
-      <p className="mt-2 flex items-center gap-1 text-zinc-500 dark:text-zinc-400">
+      <p className="mt-2 flex items-center gap-1 text-emerald-900/60 dark:text-emerald-200/60">
         Trial Compass doesn&apos;t just show you trials today — check back here to see what&apos;s
         changed since you last looked. Tracking is stored in this browser only.
         <HelpLink entry="howTrackingWorks" />
       </p>
 
       {items.length === 0 && (
-        <p className="mt-8 text-sm text-zinc-500 dark:text-zinc-400">
+        <p className="mt-8 text-sm text-emerald-900/60 dark:text-emerald-200/60">
           No trials tracked yet. Find a trial on the{" "}
-          <Link href="/match" className="underline">
+          <Link href="/match" className="text-emerald-700 underline dark:text-emerald-300">
             match page
           </Link>{" "}
           and click &ldquo;Track this trial.&rdquo;
@@ -111,18 +111,18 @@ export default function TrackedPage() {
 
       <ul className="mt-8 flex flex-col gap-4">
         {items.map((item) => (
-          <li key={item.nctId} className="rounded-2xl border border-black/[.08] p-5 dark:border-white/[.145]">
+          <li key={item.nctId} className="rounded-2xl border border-emerald-100 bg-white/70 p-5 shadow-sm dark:border-emerald-900/40 dark:bg-emerald-950/20">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h2 className="font-medium text-black dark:text-zinc-50">{item.snapshot.title}</h2>
-                <p className="mt-0.5 text-xs text-zinc-500 dark:text-zinc-400">
+                <h2 className="font-medium text-emerald-950 dark:text-emerald-50">{item.snapshot.title}</h2>
+                <p className="mt-0.5 text-xs text-emerald-900/60 dark:text-emerald-200/60">
                   {item.condition} · {item.nctId} · last checked{" "}
                   {new Date(item.snapshot.capturedAt).toLocaleString()}
                 </p>
               </div>
               <button
                 onClick={() => handleUntrack(item.nctId)}
-                className="shrink-0 text-xs text-zinc-400 hover:underline dark:text-zinc-500"
+                className="shrink-0 text-xs text-emerald-900/40 hover:underline dark:text-emerald-300/40"
               >
                 Untrack
               </button>
@@ -132,14 +132,14 @@ export default function TrackedPage() {
               <button
                 onClick={() => runCheck(item, false)}
                 disabled={busy[item.nctId]}
-                className="rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-colors hover:bg-[#383838] disabled:cursor-not-allowed disabled:opacity-40 dark:hover:bg-[#ccc]"
+                className="rounded-full bg-emerald-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-emerald-400 dark:text-emerald-950 dark:hover:bg-emerald-300"
               >
                 {busy[item.nctId] ? "Checking…" : "Check for updates"}
               </button>
               <button
                 onClick={() => runCheck(item, true)}
                 disabled={busy[item.nctId]}
-                className="rounded-full border border-black/[.15] px-4 py-2 text-sm font-medium text-zinc-700 transition-colors hover:bg-black/[.03] disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/[.2] dark:text-zinc-300 dark:hover:bg-white/[.06]"
+                className="rounded-full border border-emerald-200 px-4 py-2 text-sm font-medium text-emerald-950/85 transition-colors hover:bg-emerald-50 disabled:cursor-not-allowed disabled:opacity-40 dark:border-emerald-800/60 dark:text-emerald-100/85 dark:hover:bg-emerald-900/30"
               >
                 Fast-forward (simulate changes)
               </button>
@@ -150,22 +150,22 @@ export default function TrackedPage() {
             )}
 
             {item.history.length === 0 ? (
-              <p className="mt-3 text-xs text-zinc-400 dark:text-zinc-500">
+              <p className="mt-3 text-xs text-emerald-900/40 dark:text-emerald-300/40">
                 No changes detected yet — check back later, or use fast-forward to see how this
                 works.
               </p>
             ) : (
               <div className="mt-4 flex flex-col gap-3">
                 {item.history.map((entry, i) => (
-                  <div key={i} className="border-l-2 border-black/[.1] pl-3 dark:border-white/[.15]">
-                    <p className="text-xs text-zinc-400 dark:text-zinc-500">
+                  <div key={i} className="border-l-2 border-emerald-100 pl-3 dark:border-emerald-800/60">
+                    <p className="text-xs text-emerald-900/40 dark:text-emerald-300/40">
                       {new Date(entry.checkedAt).toLocaleString()}
                       {entry.simulated && " · simulated"}
                     </p>
                     <ul className="mt-1 flex flex-col gap-1">
                       {entry.changes.map((change, j) => (
-                        <li key={j} className="text-sm text-zinc-700 dark:text-zinc-200">
-                          <span className="text-xs text-zinc-400 dark:text-zinc-500">
+                        <li key={j} className="text-sm text-emerald-950/85 dark:text-emerald-100/85">
+                          <span className="text-xs text-emerald-900/40 dark:text-emerald-300/40">
                             [{formatChangeType(change)}]
                           </span>{" "}
                           {change.message}

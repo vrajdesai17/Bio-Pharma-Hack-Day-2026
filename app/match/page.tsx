@@ -18,15 +18,15 @@ function formatLocation(loc: TrialLocation): string {
 }
 
 const VERDICT_META: Record<TrialMatch["verdict"], { label: string; color: string }> = {
-  PASS: { label: "Likely match", color: "#0ca30c" },
-  UNKNOWN: { label: "Possible match", color: "#fab219" },
-  FAIL: { label: "Unlikely match", color: "#d03b3b" },
+  PASS: { label: "Likely match", color: "#059669" },
+  UNKNOWN: { label: "Possible match", color: "#f59e0b" },
+  FAIL: { label: "Unlikely match", color: "#e11d48" },
 };
 
 const CRITERION_STATUS_META: Record<TrialMatch["criteria"][number]["status"], { label: string; color: string }> = {
-  met: { label: "Met", color: "#0ca30c" },
-  not_met: { label: "Not met", color: "#d03b3b" },
-  unknown: { label: "Unknown", color: "#898781" },
+  met: { label: "Met", color: "#059669" },
+  not_met: { label: "Not met", color: "#e11d48" },
+  unknown: { label: "Unknown", color: "#8ba397" },
 };
 
 const PROFILE_FIELD_LABELS: Record<keyof PatientProfile, string> = {
@@ -168,28 +168,28 @@ function MatchForm() {
   return (
     <div className="mx-auto w-full max-w-2xl px-6 py-16">
       <div className="flex items-center justify-between">
-        <Link href="/" className="text-sm text-zinc-500 hover:underline">
+        <Link href="/" className="text-sm text-emerald-800/70 hover:text-emerald-700 hover:underline dark:text-emerald-300/70 dark:hover:text-emerald-200">
           ← Back
         </Link>
         <div className="flex items-center gap-4">
-          <Link href="/help" className="text-sm text-zinc-500 hover:underline dark:text-zinc-400">
+          <Link href="/help" className="text-sm text-emerald-800/70 hover:text-emerald-700 hover:underline dark:text-emerald-300/70 dark:hover:text-emerald-200">
             Help
           </Link>
-          <Link href="/tracked" className="text-sm text-zinc-500 hover:underline dark:text-zinc-400">
+          <Link href="/tracked" className="text-sm text-emerald-800/70 hover:text-emerald-700 hover:underline dark:text-emerald-300/70 dark:hover:text-emerald-200">
             Tracked trials →
           </Link>
         </div>
       </div>
-      <h1 className="mt-4 text-3xl font-semibold tracking-tight text-black dark:text-zinc-50">
+      <h1 className="mt-4 text-3xl font-semibold tracking-tight text-emerald-950 dark:text-emerald-50">
         Find trials that match you
       </h1>
-      <p className="mt-2 text-zinc-500 dark:text-zinc-400">
+      <p className="mt-2 text-emerald-900/60 dark:text-emerald-200/60">
         Describe yourself in your own words. We&apos;ll check what you say against the actual
         eligibility criteria of real trials — and show you exactly why each one matched or
         didn&apos;t.
       </p>
 
-      <p className="mt-4 rounded-xl border-l-2 border-[#fab219] bg-black/[.02] px-4 py-3 text-sm text-zinc-600 dark:bg-white/[.04] dark:text-zinc-300">
+      <p className="mt-4 rounded-xl border-l-2 border-amber-400 bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:border-amber-500 dark:bg-amber-950/30 dark:text-amber-200">
         This is AI-assisted information, not medical advice. Match results can be wrong or
         incomplete — always confirm eligibility with your doctor or the trial&apos;s own study team
         before acting on anything shown here.
@@ -219,18 +219,18 @@ function MatchForm() {
         }}
       >
         <label className="flex flex-col gap-1.5">
-          <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Condition</span>
+          <span className="text-sm font-medium text-emerald-950/85 dark:text-emerald-100/85">Condition</span>
           <input
             type="text"
             value={condition}
             onChange={(e) => setCondition(e.target.value)}
             placeholder="e.g. pancreatic cancer"
-            className="rounded-xl border border-black/[.08] bg-white px-4 py-2.5 text-base outline-none focus:border-black/30 dark:border-white/[.145] dark:bg-zinc-900 dark:text-zinc-50"
+            className="rounded-xl border border-emerald-200 bg-white px-4 py-2.5 text-base text-emerald-950 outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 dark:border-emerald-800/60 dark:bg-emerald-950/40 dark:text-emerald-50 dark:focus:ring-emerald-900/50"
           />
         </label>
 
         <label className="flex flex-col gap-1.5">
-          <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+          <span className="text-sm font-medium text-emerald-950/85 dark:text-emerald-100/85">
             Tell us about your situation
           </span>
           <textarea
@@ -238,9 +238,9 @@ function MatchForm() {
             onChange={(e) => setProfile(e.target.value)}
             rows={6}
             placeholder="e.g. I'm 62, diagnosed with stage 3 pancreatic cancer, had one round of chemo (FOLFIRINOX), no diabetes, based in Boston."
-            className="resize-none rounded-xl border border-black/[.08] bg-white px-4 py-2.5 text-base outline-none focus:border-black/30 dark:border-white/[.145] dark:bg-zinc-900 dark:text-zinc-50"
+            className="resize-none rounded-xl border border-emerald-200 bg-white px-4 py-2.5 text-base text-emerald-950 outline-none focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100 dark:border-emerald-800/60 dark:bg-emerald-950/40 dark:text-emerald-50 dark:focus:ring-emerald-900/50"
           />
-          <span className="text-xs text-zinc-400 dark:text-zinc-500">
+          <span className="text-xs text-emerald-900/40 dark:text-emerald-300/40">
             Age, diagnosis details, stage, prior treatments, and anything else you think matters —
             plain language is fine.
           </span>
@@ -249,7 +249,7 @@ function MatchForm() {
         <button
           type="submit"
           disabled={!canSubmit}
-          className="self-start rounded-full bg-foreground px-6 py-3 font-medium text-background transition-colors hover:bg-[#383838] disabled:cursor-not-allowed disabled:opacity-40 dark:hover:bg-[#ccc]"
+          className="self-start rounded-full bg-emerald-500 px-6 py-3 font-medium text-white shadow-sm transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-emerald-400 dark:text-emerald-950 dark:hover:bg-emerald-300"
         >
           {loading ? "Extracting…" : "Find my matches"}
         </button>
@@ -258,29 +258,29 @@ function MatchForm() {
       {error && <p className="mt-6 text-sm text-red-600 dark:text-red-400">{error}</p>}
 
       {result && (
-        <div className="mt-8 rounded-2xl border border-black/[.08] p-5 dark:border-white/[.145]">
+        <div className="mt-8 rounded-2xl border border-emerald-100 bg-white/70 p-5 shadow-sm dark:border-emerald-900/40 dark:bg-emerald-950/20">
           {result.stubbed ? (
             <>
-              <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+              <p className="text-sm font-medium text-emerald-950/85 dark:text-emerald-100/85">
                 LLM not configured yet
               </p>
-              <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+              <p className="mt-2 text-sm text-emerald-900/60 dark:text-emerald-200/60">
                 No <code>OPENAI_API_KEY</code> is set, so the profile below is an empty
                 placeholder — the request path is wired up and ready, it just has nothing to call.
               </p>
             </>
           ) : (
-            <p className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            <p className="text-sm font-medium text-emerald-950/85 dark:text-emerald-100/85">
               Structured profile for {result.condition}
             </p>
           )}
           <dl className="mt-3 flex flex-col gap-2">
             {(Object.keys(PROFILE_FIELD_LABELS) as (keyof PatientProfile)[]).map((key) => (
               <div key={key} className="flex gap-2 text-sm">
-                <dt className="w-36 shrink-0 text-zinc-500 dark:text-zinc-400">
+                <dt className="w-36 shrink-0 text-emerald-900/60 dark:text-emerald-200/60">
                   {PROFILE_FIELD_LABELS[key]}
                 </dt>
-                <dd className="text-zinc-800 dark:text-zinc-200">
+                <dd className="text-emerald-950 dark:text-emerald-100">
                   {formatFieldValue(result.profile[key])}
                 </dd>
               </div>
@@ -291,7 +291,7 @@ function MatchForm() {
             <button
               onClick={findMatchingTrials}
               disabled={eligibilityLoading}
-              className="mt-5 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-colors hover:bg-[#383838] disabled:cursor-not-allowed disabled:opacity-40 dark:hover:bg-[#ccc]"
+              className="mt-5 rounded-full bg-emerald-500 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-40 dark:bg-emerald-400 dark:text-emerald-950 dark:hover:bg-emerald-300"
             >
               {eligibilityLoading ? "Checking trials…" : "See matching trials →"}
             </button>
@@ -305,10 +305,10 @@ function MatchForm() {
 
       {eligibility && (
         <div className="mt-8">
-          <h2 className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+          <h2 className="text-sm font-medium text-emerald-900/60 dark:text-emerald-200/60">
             Trial matches
           </h2>
-          <p className="mt-0.5 text-xs text-zinc-400 dark:text-zinc-500">
+          <p className="mt-0.5 text-xs text-emerald-900/40 dark:text-emerald-300/40">
             Based on the {eligibility.trialsConsidered} recruiting trials for this condition — each
             argued for and against by two independent agents, then judged against the trial&apos;s
             own eligibility criteria. AI-generated — verify with your care team before acting on any
@@ -321,7 +321,7 @@ function MatchForm() {
             const filtered = applyTrialFilters(eligibility.results, filters, patientLocation, Date.now());
             return (
               <>
-                <div className="mt-4 flex flex-wrap items-center gap-3 rounded-xl border border-black/[.08] p-3 text-xs dark:border-white/[.145]">
+                <div className="mt-4 flex flex-wrap items-center gap-3 rounded-xl border border-emerald-100 bg-white/60 p-3 text-xs dark:border-emerald-900/40 dark:bg-emerald-950/20">
                   <label className="flex items-center gap-1.5">
                     Confidence
                     <select
@@ -329,7 +329,7 @@ function MatchForm() {
                       onChange={(e) =>
                         setFilters((f) => ({ ...f, confidence: e.target.value as TrialFilters["confidence"] }))
                       }
-                      className="rounded-md border border-black/[.08] bg-transparent px-1.5 py-1 dark:border-white/[.145]"
+                      className="rounded-md border border-emerald-200 bg-white px-1.5 py-1 dark:border-emerald-800/60 dark:bg-emerald-950/40"
                     >
                       <option value="all">All</option>
                       <option value="highMedium">High + Medium (≥50%)</option>
@@ -344,7 +344,7 @@ function MatchForm() {
                       onChange={(e) =>
                         setFilters((f) => ({ ...f, recruitment: e.target.value as TrialFilters["recruitment"] }))
                       }
-                      className="rounded-md border border-black/[.08] bg-transparent px-1.5 py-1 dark:border-white/[.145]"
+                      className="rounded-md border border-emerald-200 bg-white px-1.5 py-1 dark:border-emerald-800/60 dark:bg-emerald-950/40"
                     >
                       <option value="all">All</option>
                       <option value="recruiting">Recruiting</option>
@@ -359,7 +359,7 @@ function MatchForm() {
                       onChange={(e) =>
                         setFilters((f) => ({ ...f, recentUpdate: e.target.value as TrialFilters["recentUpdate"] }))
                       }
-                      className="rounded-md border border-black/[.08] bg-transparent px-1.5 py-1 dark:border-white/[.145]"
+                      className="rounded-md border border-emerald-200 bg-white px-1.5 py-1 dark:border-emerald-800/60 dark:bg-emerald-950/40"
                     >
                       <option value="any">Any time</option>
                       <option value="30">30 days</option>
@@ -375,7 +375,7 @@ function MatchForm() {
                       onChange={(e) =>
                         setFilters((f) => ({ ...f, studyStart: e.target.value as TrialFilters["studyStart"] }))
                       }
-                      className="rounded-md border border-black/[.08] bg-transparent px-1.5 py-1 dark:border-white/[.145]"
+                      className="rounded-md border border-emerald-200 bg-white px-1.5 py-1 dark:border-emerald-800/60 dark:bg-emerald-950/40"
                     >
                       <option value="any">Any time</option>
                       <option value="30">Within 30 days</option>
@@ -397,14 +397,14 @@ function MatchForm() {
                   {filters !== DEFAULT_FILTERS && (
                     <button
                       onClick={() => setFilters(DEFAULT_FILTERS)}
-                      className="text-zinc-500 underline hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
+                      className="text-emerald-800/70 underline hover:text-emerald-600 dark:text-emerald-300/70 dark:hover:text-emerald-100"
                     >
                       Reset filters
                     </button>
                   )}
                 </div>
 
-                <p className="mt-2 text-xs text-zinc-400 dark:text-zinc-500">
+                <p className="mt-2 text-xs text-emerald-900/40 dark:text-emerald-300/40">
                   Showing {filtered.length} of {eligibility.results.length} trials
                 </p>
 
@@ -418,7 +418,7 @@ function MatchForm() {
               return (
                 <li
                   key={trial.nctId}
-                  className="rounded-2xl border border-black/[.08] p-5 dark:border-white/[.145]"
+                  className="rounded-2xl border border-emerald-100 bg-white/70 p-5 shadow-sm dark:border-emerald-900/40 dark:bg-emerald-950/20"
                 >
                   <div className="flex items-center justify-between gap-4">
                     <span className="flex items-center gap-1.5 text-xs font-medium">
@@ -426,33 +426,33 @@ function MatchForm() {
                         className="inline-block h-2.5 w-2.5 rounded-full"
                         style={{ backgroundColor: meta.color }}
                       />
-                      <span className="text-zinc-700 dark:text-zinc-300">{meta.label}</span>
+                      <span className="text-emerald-950/85 dark:text-emerald-100/85">{meta.label}</span>
                       <HelpLink entry="whyUnknown" />
                     </span>
-                    <span className="flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
+                    <span className="flex items-center gap-1 text-xs text-emerald-900/60 dark:text-emerald-200/60">
                       {match.confidence}% confidence
                       <HelpLink entry="whatConfidenceMeans" />
                     </span>
                   </div>
                   {match.verdictAdjusted && (
-                    <p className="mt-1.5 text-xs text-[#d03b3b]">
+                    <p className="mt-1.5 text-xs text-rose-600 dark:text-rose-400">
                       Adjusted from the judge&apos;s original verdict — it didn&apos;t logically
                       follow from its own criterion-by-criterion breakdown below.
                     </p>
                   )}
 
-                  <h3 className="mt-2 font-medium text-black dark:text-zinc-50">{trial.title}</h3>
+                  <h3 className="mt-2 font-medium text-emerald-950 dark:text-emerald-50">{trial.title}</h3>
 
                   <div className="mt-3 flex flex-col gap-1.5 text-sm">
-                    <p className="text-zinc-600 dark:text-zinc-300">
-                      <span className="font-medium text-[#0ca30c]">FOR: </span>
+                    <p className="text-emerald-950/70 dark:text-emerald-100/70">
+                      <span className="font-medium text-emerald-600 dark:text-emerald-400">FOR: </span>
                       {match.forArgument}
                     </p>
-                    <p className="text-zinc-600 dark:text-zinc-300">
-                      <span className="font-medium text-[#d03b3b]">AGAINST: </span>
+                    <p className="text-emerald-950/70 dark:text-emerald-100/70">
+                      <span className="font-medium text-rose-600 dark:text-rose-400">AGAINST: </span>
                       {match.againstArgument}
                     </p>
-                    <p className="text-zinc-700 dark:text-zinc-200">
+                    <p className="text-emerald-950/85 dark:text-emerald-100">
                       <span className="font-medium">JUDGE: </span>
                       {match.reasoning}
                       <span className="ml-1 inline-flex align-middle">
@@ -461,7 +461,7 @@ function MatchForm() {
                     </p>
                   </div>
 
-                  <p className="mt-2 flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
+                  <p className="mt-2 flex items-center gap-1 text-xs text-emerald-900/60 dark:text-emerald-200/60">
                     Evidence coverage: {match.evidenceCoverage.checkable}/{match.evidenceCoverage.total} criteria
                     checkable from what you said
                     <HelpLink entry="howSourcesShown" />
@@ -474,22 +474,22 @@ function MatchForm() {
                         onClick={() => selectLanguage(trial.nctId, m, trial, match.criteria)}
                         className={`rounded-full px-2.5 py-1 capitalize transition-colors ${
                           mode === m
-                            ? "bg-foreground text-background"
-                            : "text-zinc-500 hover:bg-black/[.05] dark:text-zinc-400 dark:hover:bg-white/[.08]"
+                            ? "bg-emerald-500 text-white dark:bg-emerald-400 dark:text-emerald-950"
+                            : "text-emerald-900/60 hover:bg-emerald-100 dark:text-emerald-200/60 dark:hover:bg-emerald-900/40"
                         }`}
                       >
                         {m}
                       </button>
                     ))}
-                    {langCache === "loading" && <span className="text-zinc-400">Rewriting…</span>}
-                    {langCache === "error" && <span className="text-[#d03b3b]">Couldn&apos;t rewrite — showing original</span>}
+                    {langCache === "loading" && <span className="text-emerald-900/40 dark:text-emerald-300/40">Rewriting…</span>}
+                    {langCache === "error" && <span className="text-rose-600 dark:text-rose-400">Couldn&apos;t rewrite — showing original</span>}
                   </div>
 
-                  <blockquote className="mt-2 border-l-2 border-black/[.15] pl-3 text-sm italic text-zinc-500 dark:border-white/[.2] dark:text-zinc-400">
+                  <blockquote className="mt-2 border-l-2 border-emerald-200 pl-3 text-sm italic text-emerald-900/60 dark:border-emerald-800/60 dark:text-emerald-200/60">
                     &ldquo;{resolveText(mode, match.citedCriteria, langCache)}&rdquo;
                   </blockquote>
                   {!match.citationVerified && (
-                    <p className="mt-1.5 pl-3 text-xs text-[#d03b3b]">
+                    <p className="mt-1.5 pl-3 text-xs text-rose-600 dark:text-rose-400">
                       Could not automatically verify this quote appears in the trial&apos;s
                       criteria text — check the full criteria below before relying on it.
                     </p>
@@ -497,20 +497,20 @@ function MatchForm() {
 
                   <div className="mt-3 text-sm">
                     {trial.locations.length === 0 ? (
-                      <span className="text-zinc-400 dark:text-zinc-500">
+                      <span className="text-emerald-900/40 dark:text-emerald-300/40">
                         No site location data available for this trial.
                       </span>
                     ) : nearby ? (
-                      <span className="font-medium text-[#0ca30c]">
+                      <span className="font-medium text-emerald-600 dark:text-emerald-400">
                         Has a site near &ldquo;{patientLocation}&rdquo;: {formatLocation(nearby)}
                       </span>
                     ) : (
-                      <span className="text-zinc-500 dark:text-zinc-400">
+                      <span className="text-emerald-900/60 dark:text-emerald-200/60">
                         {trial.locations.length} site{trial.locations.length === 1 ? "" : "s"}
                         {patientLocation && `, none matching "${patientLocation}"`}
                       </span>
                     )}
-                    <p className="mt-1 text-xs text-zinc-400 dark:text-zinc-500">
+                    <p className="mt-1 text-xs text-emerald-900/40 dark:text-emerald-300/40">
                       {trial.locations.slice(0, 6).map(formatLocation).join(" · ")}
                       {trial.locations.length > 6 && ` +${trial.locations.length - 6} more`}
                     </p>
@@ -521,34 +521,34 @@ function MatchForm() {
                       href={trial.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block text-sm text-zinc-500 hover:underline dark:text-zinc-400"
+                      className="inline-block text-sm text-emerald-800/70 hover:text-emerald-700 hover:underline dark:text-emerald-300/70 dark:hover:text-emerald-200"
                     >
                       {trial.nctId} on ClinicalTrials.gov ↗
                     </a>
                     <button
                       onClick={() => toggleInSet(expandedTrials, setExpandedTrials, trial.nctId)}
-                      className="text-sm text-zinc-500 hover:underline dark:text-zinc-400"
+                      className="text-sm text-emerald-800/70 hover:text-emerald-700 hover:underline dark:text-emerald-300/70 dark:hover:text-emerald-200"
                     >
                       {expandedTrials.has(trial.nctId) ? "Hide full criteria" : "Show full eligibility criteria"}
                     </button>
                     <button
                       onClick={() => toggleInSet(expandedCriteria, setExpandedCriteria, trial.nctId)}
-                      className="text-sm text-zinc-500 hover:underline dark:text-zinc-400"
+                      className="text-sm text-emerald-800/70 hover:text-emerald-700 hover:underline dark:text-emerald-300/70 dark:hover:text-emerald-200"
                     >
                       {expandedCriteria.has(trial.nctId) ? "Hide criterion breakdown" : "Show criterion-by-criterion breakdown"}
                     </button>
                     <button
                       onClick={() => toggleMissingInfo(trial.nctId, trial, match.criteria, result?.profile)}
-                      className="text-sm text-zinc-500 hover:underline dark:text-zinc-400"
+                      className="text-sm text-emerald-800/70 hover:text-emerald-700 hover:underline dark:text-emerald-300/70 dark:hover:text-emerald-200"
                     >
                       {expandedMissingInfo.has(trial.nctId) ? "Hide what's missing" : "What's still missing?"}
                     </button>
                     {trackedIds.has(trial.nctId) ? (
-                      <span className="text-sm text-[#0ca30c]">✓ Tracking</span>
+                      <span className="text-sm text-emerald-600 dark:text-emerald-400">✓ Tracking</span>
                     ) : (
                       <button
                         onClick={() => handleTrack(trial, result?.condition ?? condition)}
-                        className="text-sm text-zinc-500 hover:underline dark:text-zinc-400"
+                        className="text-sm text-emerald-800/70 hover:text-emerald-700 hover:underline dark:text-emerald-300/70 dark:hover:text-emerald-200"
                       >
                         Track this trial
                       </button>
@@ -556,27 +556,27 @@ function MatchForm() {
                   </div>
 
                   {expandedMissingInfo.has(trial.nctId) && (
-                    <div className="mt-3 rounded-lg bg-black/[.03] p-3 dark:bg-white/[.06]">
+                    <div className="mt-3 rounded-lg bg-emerald-50/70 p-3 dark:bg-emerald-950/30">
                       {missingInfo === "loading" && (
-                        <p className="text-xs text-zinc-400 dark:text-zinc-500">Checking what matters most…</p>
+                        <p className="text-xs text-emerald-900/40 dark:text-emerald-300/40">Checking what matters most…</p>
                       )}
                       {missingInfo === "error" && (
-                        <p className="text-xs text-[#d03b3b]">Couldn&apos;t load this — try again.</p>
+                        <p className="text-xs text-rose-600 dark:text-rose-400">Couldn&apos;t load this — try again.</p>
                       )}
                       {Array.isArray(missingInfo) && missingInfo.length === 0 && (
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                        <p className="text-xs text-emerald-900/60 dark:text-emerald-200/60">
                           Nothing unknown here stands out as especially critical to this assessment.
                         </p>
                       )}
                       {Array.isArray(missingInfo) && missingInfo.length > 0 && (
                         <>
-                          <p className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
+                          <p className="text-xs font-medium text-emerald-950/85 dark:text-emerald-100/85">
                             Here&apos;s what we still need to know:
                           </p>
                           <ul className="mt-1.5 flex flex-col gap-1.5">
                             {missingInfo.map((item, i) => (
-                              <li key={i} className="text-xs text-zinc-600 dark:text-zinc-400">
-                                <span className="font-medium text-zinc-700 dark:text-zinc-300">
+                              <li key={i} className="text-xs text-emerald-950/70 dark:text-emerald-200/70">
+                                <span className="font-medium text-emerald-950/85 dark:text-emerald-100/85">
                                   {item.criterion}
                                 </span>{" "}
                                 — {item.whyItMatters}
@@ -589,15 +589,15 @@ function MatchForm() {
                   )}
 
                   {expandedTrials.has(trial.nctId) && (
-                    <pre className="mt-3 max-h-64 overflow-y-auto whitespace-pre-wrap rounded-lg bg-black/[.03] p-3 font-sans text-xs text-zinc-600 dark:bg-white/[.06] dark:text-zinc-300">
+                    <pre className="mt-3 max-h-64 overflow-y-auto whitespace-pre-wrap rounded-lg bg-emerald-50/70 p-3 font-sans text-xs text-emerald-950/70 dark:bg-emerald-950/30 dark:text-emerald-100/70">
                       {trial.eligibilityCriteria || "No eligibility criteria text is available for this trial."}
                     </pre>
                   )}
 
                   {expandedCriteria.has(trial.nctId) && (
-                    <ul className="mt-3 flex flex-col gap-2 rounded-lg bg-black/[.03] p-3 dark:bg-white/[.06]">
+                    <ul className="mt-3 flex flex-col gap-2 rounded-lg bg-emerald-50/70 p-3 dark:bg-emerald-950/30">
                       {match.criteria.length === 0 ? (
-                        <li className="text-xs text-zinc-500 dark:text-zinc-400">
+                        <li className="text-xs text-emerald-900/60 dark:text-emerald-200/60">
                           The judge didn&apos;t break this trial into individual criteria.
                         </li>
                       ) : (
@@ -610,10 +610,10 @@ function MatchForm() {
                                 style={{ backgroundColor: statusMeta.color }}
                               />
                               <span>
-                                <span className="font-medium text-zinc-700 dark:text-zinc-300">
+                                <span className="font-medium text-emerald-950/85 dark:text-emerald-100/85">
                                   {statusMeta.label}:
                                 </span>{" "}
-                                <span className="text-zinc-600 dark:text-zinc-400">
+                                <span className="text-emerald-950/70 dark:text-emerald-200/70">
                                   {resolveText(mode, c.criterion, langCache)}
                                 </span>
                               </span>
