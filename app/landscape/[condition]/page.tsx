@@ -53,9 +53,14 @@ export default async function LandscapePage({
 
   return (
     <div className="mx-auto w-full max-w-3xl px-6 py-16">
-      <Link href="/" className="text-sm text-zinc-500 hover:underline">
-        ← Back
-      </Link>
+      <div className="flex items-center justify-between">
+        <Link href="/" className="text-sm text-zinc-500 hover:underline">
+          ← Back
+        </Link>
+        <Link href="/help" className="text-sm text-zinc-500 hover:underline dark:text-zinc-400">
+          Help
+        </Link>
+      </div>
       <div className="mt-4 flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-black dark:text-zinc-50">

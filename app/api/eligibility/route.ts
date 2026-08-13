@@ -3,7 +3,7 @@ import { fetchTrials } from "@/lib/clinicaltrials";
 import { evaluateTrialMatch, isLLMConfigured, PatientProfileSchema } from "@/lib/llm";
 
 const TRIALS_CONSIDERED = 12;
-const VERDICT_RANK = { match: 0, possible: 1, unclear: 2, no_match: 3 } as const;
+const VERDICT_RANK = { PASS: 0, UNKNOWN: 1, FAIL: 2 } as const;
 
 export async function POST(req: NextRequest) {
   if (!isLLMConfigured()) {

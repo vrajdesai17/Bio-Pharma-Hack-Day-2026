@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const EXAMPLES = ["Pancreatic cancer", "ALS", "Cystic fibrosis", "Multiple sclerosis"];
 
@@ -61,6 +62,15 @@ export default function Home() {
               {example}
             </button>
           ))}
+        </div>
+
+        <div className="flex items-center gap-4">
+          <Link href="/tracked" className="text-sm text-zinc-500 hover:underline dark:text-zinc-400">
+            View tracked trials →
+          </Link>
+          <Link href="/help" className="text-sm text-zinc-500 hover:underline dark:text-zinc-400">
+            Help &amp; FAQ
+          </Link>
         </div>
       </main>
     </div>

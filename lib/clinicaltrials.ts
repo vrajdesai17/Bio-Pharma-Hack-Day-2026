@@ -15,8 +15,52 @@ export type Trial = {
   briefSummary: string;
   eligibilityCriteria: string;
   locations: TrialLocation[];
+  enrollmentCount: number | null;
+  startDate: string | null;
+  primaryCompletionDate: string | null;
+  lastUpdatePostDate: string | null;
   url: string;
 };
+
+function parseStudy(study: Record<string, any>): Trial {
+  const section = study.protocolSection ?? {};
+  const id = section.identificationModule ?? {};
+  const status = section.statusModule ?? {};
+  const design = section.designModule ?? {};
+  const conditions = section.conditionsModule ?? {};
+  const description = section.descriptionModule ?? {};
+  const eligibility = section.eligibilityModule ?? {};
+  const contactsLocations = section.contactsLocationsModule ?? {};
+
+  const seen = new Set<string>();
+  const locations: TrialLocation[] = [];
+  for (const loc of contactsLocations.locations ?? []) {
+    const city = loc.city ?? "";
+    const state = loc.state ?? "";
+    const country = loc.country ?? "";
+    if (!city && !state && !country) continue;
+    const key = `${city}|${state}|${country}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    locations.push({ city, state, country });
+  }
+
+  return {
+    nctId: id.nctId ?? "",
+    title: id.briefTitle ?? "Untitled study",
+    status: status.overallStatus ?? "UNKNOWN",
+    phases: design.phases ?? [],
+    conditions: conditions.conditions ?? [],
+    briefSummary: description.briefSummary ?? "",
+    eligibilityCriteria: eligibility.eligibilityCriteria ?? "",
+    locations,
+    enrollmentCount: design.enrollmentInfo?.count ?? null,
+    startDate: status.startDateStruct?.date ?? null,
+    primaryCompletionDate: status.primaryCompletionDateStruct?.date ?? null,
+    lastUpdatePostDate: status.lastUpdatePostDateStruct?.date ?? null,
+    url: `https://clinicaltrials.gov/study/${id.nctId}`,
+  };
+}
 
 export async function fetchTrials(
   condition: string,
@@ -34,41 +78,14 @@ export async function fetchTrials(
   }
   const data = await res.json();
 
-  return (data.studies ?? []).map((study: Record<string, any>) => {
-    const section = study.protocolSection ?? {};
-    const id = section.identificationModule ?? {};
-    const status = section.statusModule ?? {};
-    const design = section.designModule ?? {};
-    const conditions = section.conditionsModule ?? {};
-    const description = section.descriptionModule ?? {};
-    const eligibility = section.eligibilityModule ?? {};
-    const contactsLocations = section.contactsLocationsModule ?? {};
+  return (data.studies ?? []).map(parseStudy);
+}
 
-    const seen = new Set<string>();
-    const locations: TrialLocation[] = [];
-    for (const loc of contactsLocations.locations ?? []) {
-      const city = loc.city ?? "";
-      const state = loc.state ?? "";
-      const country = loc.country ?? "";
-      if (!city && !state && !country) continue;
-      const key = `${city}|${state}|${country}`;
-      if (seen.has(key)) continue;
-      seen.add(key);
-      locations.push({ city, state, country });
-    }
-
-    return {
-      nctId: id.nctId ?? "",
-      title: id.briefTitle ?? "Untitled study",
-      status: status.overallStatus ?? "UNKNOWN",
-      phases: design.phases ?? [],
-      conditions: conditions.conditions ?? [],
-      briefSummary: description.briefSummary ?? "",
-      eligibilityCriteria: eligibility.eligibilityCriteria ?? "",
-      locations,
-      url: `https://clinicaltrials.gov/study/${id.nctId}`,
-    };
-  });
+export async function fetchTrialById(nctId: string): Promise<Trial | null> {
+  const res = await fetch(`${BASE_URL}/${encodeURIComponent(nctId)}`, { cache: "no-store" });
+  if (!res.ok) return null;
+  const study = await res.json();
+  return parseStudy(study);
 }
 
 export const STATUSES = [
