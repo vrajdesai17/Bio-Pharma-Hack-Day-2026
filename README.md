@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Trial Compass
 
-## Getting Started
+A tool for patients (or anyone) to see, in plain language, what's actually
+happening for a medical condition right now: which trials are recruiting,
+how they break down by phase and status, and which FDA drug labels were
+recently updated for it — all pulled live, no fake or seeded data.
 
-First, run the development server:
+Built for a biopharma hackathon (Pharma Hack Day, AWS Builder Loft, SF).
+Problem statement: **treatment observability for patients** — help people
+with serious or rare conditions understand what's available in a trial or
+soon-to-be-approved.
+
+## Try it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open `localhost:3000`, type a condition (e.g. "pancreatic cancer",
+"ALS", "cystic fibrosis"), and hit Explore.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## What it does right now
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Landing page** — search any condition.
 
-## Learn More
+**Treatment Landscape page** (`/landscape/[condition]`):
+- Real trial counts by status (recruiting / completed / terminated / etc.)
+  from ClinicalTrials.gov's own totals — not a sample.
+- Phase breakdown of currently-recruiting trials.
+- Recently updated FDA drug labels that mention the condition, via openFDA.
+- The full list of recruiting trials, each linking to its real
+  ClinicalTrials.gov page.
 
-To learn more about Next.js, take a look at the following resources:
+Everything on this page is live data from two free, public, no-API-key
+sources: [ClinicalTrials.gov API v2](https://clinicaltrials.gov/data-api/api)
+and [openFDA](https://open.fda.gov/apis/).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## What's coming next
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Explainable Trial Matcher** — the actual differentiator. You describe
+yourself in plain language ("62, stage 3, had one round of chemo"), the app
+extracts a structured profile, checks it against each trial's *real*
+eligibility criteria text, and shows a verdict with a confidence score and
+the exact sentence from the trial that drove the decision — not just a
+black-box yes/no. Plus an audit trail and a "verify with your doctor"
+disclaimer, since this is health data.
 
-## Deploy on Vercel
+Also planned: pulling in [Convoke's](https://convoke.bio) drug pipeline
+database (one of the hackathon's sponsors) for richer program/competitive
+data than raw trial records alone.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Next.js (App Router, TypeScript, Tailwind), no separate backend — API
+routes double as the server. No database; everything is fetched live and
+cached briefly at the edge.
+
+## Ideas if you want to add something
+
+This is intentionally left open — pick anything and go:
+
+- Location-based sorting / "trials near me" using site geodata already in
+  the ClinicalTrials.gov response
+- Plain-language tooltips explaining what Phase 1/2/3/4 actually mean
+- Save or compare a shortlist of trials
+- A timeline view of FDA approvals for a condition over time
+- Compare two conditions side by side
+- Voice/chat interface instead of a form for the matcher intake
+- Multi-language support for the plain-language summaries
+- A "how to actually enroll" explainer per trial (contact info, next steps)
+
+If you build something, keep it consistent with the rest: server-rendered
+where possible, no data source that isn't real/live, and no client-side
+API keys.
