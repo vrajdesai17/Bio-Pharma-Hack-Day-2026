@@ -4,6 +4,17 @@ See what's happening for a medical condition right now, and whether *you* qualif
 
 Built for Pharma Hack Day (AWS Builder Loft, SF). Problem statement: treatment observability for patients.
 
+## Screenshots
+
+<p float="left">
+  <img src="docs/screenshots/landing.png" width="49%" />
+  <img src="docs/screenshots/landscape-overview.png" width="49%" />
+</p>
+<p float="left">
+  <img src="docs/screenshots/landscape-trials.png" width="49%" />
+  <img src="docs/screenshots/match-form.png" width="49%" />
+</p>
+
 ## Why
 
 Patients searching for a diagnosis get either raw ClinicalTrials.gov listings (dense, unreadable) or a chatbot yes/no they can't verify. Neither works for a decision this serious. Trial Compass gives a real verdict with the exact source sentence behind it, so patients can bring it to their doctor instead of just trusting an AI.
